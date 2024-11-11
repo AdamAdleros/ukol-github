@@ -79,7 +79,7 @@ function startGame() {
   dangerAreas = [];
   
   slowEffectActive = false;
-  clearTimeout(slowEffectTimeout);  // Clear any lingering timeout for slow effect
+  clearTimeout(slowEffectTimeout);
   
   spawnBerry();
   spawnChaser();
@@ -123,13 +123,12 @@ function spawnChaser() {
 }
 
 function spawnWanderer() {
-  // Set a buffer of 10 pixels around the edges
   const buffer = 10;
   
   let wanderer = {
-    x: Math.random() * (canvas.width - 2 * buffer) + buffer, // Spawn within bounds
+    x: Math.random() * (canvas.width - 2 * buffer) + buffer,
     y: Math.random() * (canvas.height - 2 * buffer) + buffer,
-    speedX: (Math.random() - 0.5) * 2,  // Random initial speed and direction
+    speedX: (Math.random() - 0.5) * 2,
     speedY: (Math.random() - 0.5) * 2,
     size: 35
   };
@@ -221,8 +220,7 @@ joystickBase.addEventListener('touchmove', (e) => {
 
   joystickThumb.style.transform = `translate(${thumbX}px, ${thumbY}px)`;
 
-  // Increase player movement speed multiplier
-  const speedMultiplier = 7;  // Adjust this value to control speed
+  const speedMultiplier = 7;
   player.x += Math.cos(angle) * speedMultiplier;
   player.y += Math.sin(angle) * speedMultiplier;
 
@@ -234,7 +232,6 @@ joystickBase.addEventListener('touchend', () => {
   joystickThumb.style.transform = 'translate(0px, 0px)';
 });
 
-// Helper to keep player within canvas bounds
 function constrainPlayerPosition() {
   player.x = Math.max(0, Math.min(player.x, canvas.width - player.size));
   player.y = Math.max(0, Math.min(player.y, canvas.height - player.size));
@@ -269,7 +266,7 @@ canvas.addEventListener("touchstart", handleTouch);
 canvas.addEventListener("touchmove", handleTouch);
 
 function handleTouch(event) {
-  event.preventDefault();  // Prevents scrolling during touch
+  event.preventDefault();
 
   if (isGameOver) return; 
 
@@ -278,7 +275,6 @@ function handleTouch(event) {
   let newX = touch.clientX - rect.left - player.size / 2;
   let newY = touch.clientY - rect.top - player.size / 2;
 
-  // Constrain player movement within canvas boundaries
   newX = Math.max(0, Math.min(newX, canvas.width - player.size));
   newY = Math.max(0, Math.min(newY, canvas.height - player.size));
 
@@ -342,14 +338,13 @@ function updateWanderers() {
     wanderer.x += wanderer.speedX * difficultyLevel;
     wanderer.y += wanderer.speedY * difficultyLevel;
 
-    // Boundary conditions to keep the wanderers within canvas bounds
     if (wanderer.x <= 0 || wanderer.x >= canvas.width - wanderer.size) {
-      wanderer.speedX *= -1;  // Reverse direction on x-axis
-      wanderer.x = Math.max(0, Math.min(wanderer.x, canvas.width - wanderer.size)); // Constrain within bounds
+      wanderer.speedX *= -1;
+      wanderer.x = Math.max(0, Math.min(wanderer.x, canvas.width - wanderer.size));
     }
     if (wanderer.y <= 0 || wanderer.y >= canvas.height - wanderer.size) {
-      wanderer.speedY *= -1;  // Reverse direction on y-axis
-      wanderer.y = Math.max(0, Math.min(wanderer.y, canvas.height - wanderer.size)); // Constrain within bounds
+      wanderer.speedY *= -1;
+      wanderer.y = Math.max(0, Math.min(wanderer.y, canvas.height - wanderer.size));
     }
   });
 }
